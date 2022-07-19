@@ -1,0 +1,16 @@
+app:
+  properties:
+    publisher-rate-millis: ${PUBLISHER_RATE:3000}
+
+spring:
+  kafka:
+    template:
+      default-topic: "bus.locations"
+    bootstrap-servers: localhost:29092
+    consumer:
+      group-id: bus.updates
+      bootstrap-servers: localhost:29092
+      max-poll-records: 1
+      auto-offset-reset: earliest
+    producer:
+      bootstrap-servers: localhost:29092
