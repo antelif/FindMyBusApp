@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class AppProperties {
-  private String publisherRateMillis;
   private String busLocationSourceFile;
   private String kafkaDefaultTopic;
+  private Integer kafkaNumberOfProducers;
+  private Integer kafkaProducerId;
 }
