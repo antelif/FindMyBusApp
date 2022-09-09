@@ -51,23 +51,35 @@ public class ResourceFileLoader {
       scanner.close();
 
     } catch (FileNotFoundException exception) {
-//      log.error("File {} not found: ", appProperties.getBusLocationSourceFile());
-      throw new InvalidFileException(FILE_NOT_FOUND);
+
+      var customException = new InvalidFileException(FILE_NOT_FOUND);
+      log.error(customException.getMessage());
+      throw customException;
     }
     this.busLocations = busLinesOfProducer(busLocationsList);
   }
 
+  /**
+   * Creates a list of bus locations updates for this producer based on the updates provided from
+   * the bus location source file and the producer id that is configured.
+   *
+   * @param updates the bus locations as read and retrieved for the bus locations source file.
+   * @return a list of bus locations fro this producer. It should be a sub list of the updates
+   *     provided in parameters.
+   */
   private LinkedList<BusLocation> busLinesOfProducer(LinkedList<BusLocation> updates) {
     var totalProducers = appProperties.getKafkaNumberOfProducers();
     var producerId = appProperties.getKafkaProducerId();
     var busLinesByIds = updates.stream().collect(groupingBy(BusLocation::getBusId));
 
-    // Create as many lists as needed
+    // Create as many lists as producers. This should be a list containing sub lists.
     var busLinesPerProducer = new ArrayList<List<BusLocation>>(totalProducers);
     for (int i = 0; i < totalProducers; i++) {
       busLinesPerProducer.add(new ArrayList<>());
     }
 
+    // Assign bus lines for each producer and get the list of lines of the producer for this
+    // producer id configured.
     var iterator = busLinesByIds.values().iterator();
     for (int i = 0; iterator.hasNext(); i++) {
       busLinesPerProducer.get(i % totalProducers).addAll(iterator.next());

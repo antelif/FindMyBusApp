@@ -30,10 +30,10 @@ public class BusLocation {
     if (tokens.length != 6) {
       throw new InvalidFileException(INVALID_FILE);
     }
-    this.busId = Long.valueOf(tokens[0]);
-    this.routeId = Long.valueOf(tokens[1]);
-    this.vehicleId = Long.valueOf(tokens[2]);
-    this.location = new Location(tokens[3], tokens[4]);
+    this.busId = Long.valueOf(tokens[0].replace(" ", ""));
+    this.routeId = Long.valueOf(tokens[1].replace(" ", ""));
+    this.vehicleId = Long.valueOf(tokens[2].replace(" ", ""));
+    this.location = new Location(tokens[3], tokens[4].replace(" ", ""));
     this.time = tokens[5];
   }
 }

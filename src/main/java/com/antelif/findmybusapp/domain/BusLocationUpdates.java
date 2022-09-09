@@ -3,6 +3,7 @@ package com.antelif.findmybusapp.domain;
 import static com.antelif.findmybusapp.domain.constant.Common.PRODUCER;
 
 import java.util.LinkedList;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 
@@ -18,22 +19,21 @@ public class BusLocationUpdates {
   private final LinkedList<BusLocation> busLocations;
 
   /**
-   * If there is no instance f this class created yet, create one, else return the existing
+   * If there is no instance of this class created yet, create one, else return the existing
    * instance.
    *
-   * @param filename the name of the file to generate bus location in case the instance is to be
-   *     created.
+   * @param busLocations a list with bus locations to initialize updates list from.
    * @return the existing or newly created BusLocationUpdates object.
    */
-  public static BusLocationUpdates getInstance(LinkedList<BusLocation> filename) {
+  public static BusLocationUpdates getInstance(List<BusLocation> busLocations) {
     if (classInstance == null) {
-      classInstance = new BusLocationUpdates(filename);
+      classInstance = new BusLocationUpdates(busLocations);
     }
     return classInstance;
   }
 
-  private BusLocationUpdates(LinkedList<BusLocation> busLocations){
-    this.busLocations=busLocations;
+  private BusLocationUpdates(List<BusLocation> busLocations) {
+    this.busLocations = new LinkedList<>(busLocations);
   }
 
   /**
