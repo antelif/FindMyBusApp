@@ -53,7 +53,7 @@ public class ResourceFileLoader {
     } catch (FileNotFoundException exception) {
 
       var customException = new InvalidFileException(FILE_NOT_FOUND);
-      log.error(customException.getMessage());
+      ErrorHandler.printError(customException);
       throw customException;
     }
     this.busLocations = busLinesOfProducer(busLocationsList);
