@@ -1,17 +1,21 @@
 package com.antelif.findmybusapp.scheduler;
 
+import static com.antelif.findmybusapp.domain.constant.Common.PRODUCER;
+
 import com.antelif.findmybusapp.configuration.AppProperties;
 import com.antelif.findmybusapp.domain.BusLocation;
 import com.antelif.findmybusapp.service.BusLocationUpdatesService;
 import java.time.Instant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /** Kafka producer. */
+@Profile(PRODUCER)
 @Service
 @RequiredArgsConstructor
 @Slf4j

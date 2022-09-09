@@ -1,15 +1,17 @@
 package com.antelif.findmybusapp.domain;
 
-import java.io.FileNotFoundException;
+import static com.antelif.findmybusapp.domain.constant.Common.PRODUCER;
+
 import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.ResourceUtils;
+import org.springframework.context.annotation.Profile;
 
 /**
  * Singleton domain object that contains all updates as retrieved from resource file. It is the
  * class that provides all information to kafka producers.
  */
+@Profile(PRODUCER)
 @Slf4j
 public class BusLocationUpdates {
 
@@ -17,51 +19,21 @@ public class BusLocationUpdates {
   private final LinkedList<BusLocation> busLocations;
 
   /**
-   * If there is no instance f this class created yet, create one, else return the existing
+   * If there is no instance of this class created yet, create one, else return the existing
    * instance.
    *
-   * @param filename the name of the file to generate bus location in case the instance is to be
-   *     created.
+   * @param busLocations a list with bus locations to initialize updates list from.
    * @return the existing or newly created BusLocationUpdates object.
    */
-  public static BusLocationUpdates getInstance(String filename) {
+  public static BusLocationUpdates getInstance(List<BusLocation> busLocations) {
     if (classInstance == null) {
-      classInstance = new BusLocationUpdates(filename);
+      classInstance = new BusLocationUpdates(busLocations);
     }
     return classInstance;
   }
 
-  private BusLocationUpdates(String filename) {
-    this.busLocations = generateBusLocations(filename);
-  }
-
-  /**
-   * Reads bus location updates from resource file and creates a list with bus locations to provide.
-   *
-   * @param filename the name of the file to get bus location information from.
-   * @return a linked list of bus locations as read from file.
-   */
-  private LinkedList<BusLocation> generateBusLocations(String filename) {
-    var busLocationsList = new LinkedList<BusLocation>();
-    try {
-
-      // Load file and create scanner to read it.
-      var busLocationsFile = ResourceUtils.getFile(filename);
-      var scanner = new Scanner(busLocationsFile);
-
-      // Create a BusLocation object from each line read.
-      while (scanner.hasNextLine()) {
-        var line = scanner.nextLine();
-        var busLocation = new BusLocation(line);
-        busLocationsList.add(busLocation);
-      }
-      scanner.close();
-
-      // TODO: Handle this exception.
-    } catch (FileNotFoundException exception) {
-      log.error(exception.getMessage());
-    }
-    return busLocationsList;
+  private BusLocationUpdates(List<BusLocation> busLocations) {
+    this.busLocations = new LinkedList<>(busLocations);
   }
 
   /**

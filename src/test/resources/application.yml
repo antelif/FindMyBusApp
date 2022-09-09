@@ -1,9 +1,9 @@
 app:
   properties:
-    publisher-rate-millis: ${PUBLISHER_RATE_MILLIS:3000}
-    bus-location-source-file: ${BUS_LOCATION_SOURCE_FILE:src/main/resources/busPositions.txt}
+    publisher-rate-millis: ${PUBLISHER_RATE_MILLIS:1000}
+    bus-location-source-file: ${BUS_LOCATION_SOURCE_FILE:src/test/resources/busPositions.txt}
     kafka-default-topic: ${KAFKA_DEFAULT_TOPIC:bus.locations}
-    kafka-number-of-producers: ${KAFKA_NUMBER_OF_PRODUCERS:1}
+    kafka-number-of_producers: ${KAFKA_NUMBER_OF_PRODUCERS:1}
     kafka-producer-id: ${KAFKA_PRODUCER_ID:0}
 
 spring:
