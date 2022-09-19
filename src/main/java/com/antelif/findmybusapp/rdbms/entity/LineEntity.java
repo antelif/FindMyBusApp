@@ -14,6 +14,6 @@ import lombok.Setter;
 public class LineEntity {
 
   @Id private int id;
-  private int code;
+  private String code;
   private String name;
 }
