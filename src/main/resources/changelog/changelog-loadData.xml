@@ -1,0 +1,27 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+  <!-- Load constant lines . -->
+  <changeSet id="line-data-initialization" author="antelif">
+    <loadData file="lines.csv"
+      relativeToChangelogFile="true" schemaName="public" separator=","
+      tableName="line">
+      <column header="id" name="id" type="int"/>
+      <column header="code" name="code" type="int"/>
+      <column header="name" name="name" type="varchar(255)"/>
+    </loadData>
+  </changeSet>
+
+  <!-- Load constant routes. -->
+  <changeSet id="route-data-initialization" author="antelif">
+    <loadData file="routes.csv" relativeToChangelogFile="true" schemaName="public" separator=","
+      tableName="route">
+      <column header="id" name="id" type="int"/>
+      <column header="line_id" name="line_id" type="int"/>
+      <column header="code" name="code" type="numeric"/>
+      <column header="name" name="name" type="varchar(255)"/>
+    </loadData>
+  </changeSet>
+</databaseChangeLog>

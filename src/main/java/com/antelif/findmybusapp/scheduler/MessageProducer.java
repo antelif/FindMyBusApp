@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class MessageProducer {
 
   /** Scheduled kafka producer that sends a BusLocation update every X milliseconds. */
   @Scheduled(fixedRateString = "${app.properties.publisher-rate-millis}")
-  @Async
+//  @Async
   public void publishMessage() {
 
     if (busLocationUpdatesService.hasUpdates()) {

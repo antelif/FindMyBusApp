@@ -5,20 +5,18 @@ Remastered version of AUEB project.
 
 ### Information as given from resource files:
 
-1. #### busLines.txt
+1. #### lines.txt
 
    Provides information about all the lines in existence for this app.
-   ###### Format:
-   <bus id, line id, line name>
+   ##### Format:
+   <line id, line code, line name>
 
-
-2. busPositions.txt
+2. ### busLocations.txt
    Provides information about the location of a bus line.
    ##### Format:
    <line id, route id, vehicle id, altitude, latitude, time>
 
-
-3. routeCodes.txt
+3. ### routes.txt
    provides information about the routes of each bus line.
    ##### Format:
    <route id, line id, route code, route name>
@@ -26,8 +24,9 @@ Remastered version of AUEB project.
 ### Messaging system
 
 ---
-For the messaging system Apache kafka is used. There can be multiple Publishers, Brokers and
-Consumers. The topic is `bus.location.topic`, and partition is supported.
+- For the messaging system Apache kafka is used. There can be multiple Publishers, Brokers and
+Consumers. The topic is `bus.locations`, and partition is supported.
+- Bus lines and routes are saved in database.
 ---
 
 The producers read line by line from a txt file and every X seconds -as defined in appication.yml - and they
