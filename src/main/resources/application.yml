@@ -1,12 +1,27 @@
 app:
   properties:
     publisher-rate-millis: ${PUBLISHER_RATE_MILLIS:3000}
-    bus-location-source-file: ${BUS_LOCATION_SOURCE_FILE:src/main/resources/busPositions.txt}
+    bus-location-source-file: ${BUS_LOCATION_SOURCE_FILE:src/main/resources/busLocations.txt}
     kafka-default-topic: ${KAFKA_DEFAULT_TOPIC:bus.locations}
     kafka-number-of-producers: ${KAFKA_NUMBER_OF_PRODUCERS:1}
     kafka-producer-id: ${KAFKA_PRODUCER_ID:0}
 
 spring:
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:5432/bus
+    username: ${POSTGRES_USERNAME:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: POSTGRESQL
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    open-in-view: false
+#    generate-ddl: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  liquibase:
+    change-log: classpath:/changelog/changelog-master.xml
   profiles:
     active:
       - producer

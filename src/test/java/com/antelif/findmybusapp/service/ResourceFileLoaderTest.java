@@ -3,6 +3,7 @@ package com.antelif.findmybusapp.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.antelif.findmybusapp.BaseIntegrationTest;
 import com.antelif.findmybusapp.configuration.AppProperties;
 import com.antelif.findmybusapp.domain.BusLocation;
 import com.antelif.findmybusapp.domain.exception.GenericException;
@@ -14,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 @SpringBootTest
-public class ResourceFileLoaderTest {
+public class ResourceFileLoaderTest extends BaseIntegrationTest {
 
   @Autowired private AppProperties appProperties;
   @Autowired private ResourceFileLoader resourceFileLoader;
